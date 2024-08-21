@@ -1,7 +1,10 @@
 package handlers
 
 import (
-	"time"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,15 +13,23 @@ func InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	video_router := router.Group("/video")
-	video_router.GET("/:name", getVideo)
+	video_router.GET("/:name", videoHandler)
 
 	return router
 }
 
-func getVideo(c *gin.Context) {
-	println("Отправка видео...")
+func videoHandler(c *gin.Context) {
+	name := c.Param("name") + ".m3u8"
 
-	time.Sleep(10 * time.Second)
+	Video := filepath.Join("..", "static", "videos", name)
 
-	println("Отправлено успешно!")
+	log.Println(Video)
+
+	if _, err := os.Stat(Video); err == nil {
+		c.Header("Content-Type", "application/vnd.apple.mpegurl")
+		c.File(Video)
+
+	} else {
+		c.Status(http.StatusNotFound)
+	}
 }
