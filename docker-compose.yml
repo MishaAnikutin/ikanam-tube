@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  streaming-api:
+    build:
+      context: ./streaming-api
+    ports:
+      - "8001:80"
+    volumes:
+      - ./static:/app/static
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - streaming-api

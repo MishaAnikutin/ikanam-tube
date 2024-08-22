@@ -14,6 +14,7 @@ func InitRoutes() *gin.Engine {
 	router.Use(CORSMiddleware())
 
 	video_router := router.Group("/api/video")
+
 	video_router.GET("/:name", videoHandler)
 
 	return router
@@ -22,7 +23,7 @@ func InitRoutes() *gin.Engine {
 func videoHandler(c *gin.Context) {
 	name := c.Param("name")
 
-	Video := filepath.Join("..", "static", "videos", name)
+	Video := filepath.Join("static", "videos", name)
 
 	log.Println(Video)
 
