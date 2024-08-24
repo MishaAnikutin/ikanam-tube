@@ -1,0 +1,13 @@
+env: "local"
+
+http:
+  port: 8002
+  read_timeout: 5s
+  write_timeout: 5s
+  idle_timeout: 60s
+
+cache:
+  ttl: 3600s
+
+mongo:
+  database_name: "video_metadata"
