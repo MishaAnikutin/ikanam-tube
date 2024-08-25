@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"time"
 )
@@ -25,13 +24,14 @@ func New(port string, routes http.Handler) Server {
 	return server
 }
 
-func (s *Server) RegisterRouter(router http.Handler) {
-	log.Println("Регистрирую роутеры")
-
-}
-
 func (s *Server) Run() error {
-	return s.httpServer.ListenAndServe()
+	// entries, _ := os.ReadDir("./")
+
+	// for _, e := range entries {
+	// 	log.Println(e.Name())
+	// }
+
+	return s.httpServer.ListenAndServeTLS("./certs/nginx.crt", "./certs/nginx.key")
 }
 
 func (s *Server) Stop() error {

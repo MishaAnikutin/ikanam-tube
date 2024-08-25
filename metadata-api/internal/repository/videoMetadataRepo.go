@@ -10,32 +10,31 @@ import (
 	"github.com/MishaAnikutin/metadata-api/internal/model"
 )
 
-type MetadataRepo struct {
+type VideoRepo struct {
 	session *pgxpool.Pool
 }
 
-func New(pool *pgxpool.Pool) *MetadataRepo {
-	return &MetadataRepo{
+func New(pool *pgxpool.Pool) *VideoRepo {
+	return &VideoRepo{
 		session: pool,
 	}
 }
 
-func (repo *MetadataRepo) GetByID(ctx context.Context, ID string) (model.Metadata, error) {
+func (repo *VideoRepo) GetByID(ctx context.Context, ID string) (*model.Video, error) {
 
-	query := `SELECT id, video_path, title, subtitle, description, tag, channel_id, likes, dislikes
+	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes
 			  FROM video_metadata
 			  WHERE id = @VideoID
 			  LIMIT 1`
 
 	row := repo.session.QueryRow(ctx, query, pgx.NamedArgs{"VideoID": ID})
 
-	video := model.Metadata{}
+	video := model.Video{}
 
 	err := row.Scan(
 		&video.ID,
 		&video.VideoPath,
 		&video.Title,
-		&video.Subtitle,
 		&video.Description,
 		&video.Tag,
 		&video.ChannelID,
@@ -44,14 +43,14 @@ func (repo *MetadataRepo) GetByID(ctx context.Context, ID string) (model.Metadat
 	)
 
 	if err != nil {
-		return model.Metadata{}, fmt.Errorf("Невозможно сканировать данные: %w", err)
+		return nil, fmt.Errorf("Невозможно сканировать данные: %w", err)
 	}
 
-	return video, nil
+	return &video, nil
 }
 
-func (repo *MetadataRepo) GetAll(ctx context.Context) ([]model.Metadata, error) {
-	query := `SELECT id, video_path, title, subtitle, description, tag, channel_id, likes, dislikes FROM video_metadata`
+func (repo *VideoRepo) GetAll(ctx context.Context) (*[]model.Video, error) {
+	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes FROM video_metadata`
 
 	rows, err := repo.session.Query(ctx, query)
 
@@ -60,15 +59,14 @@ func (repo *MetadataRepo) GetAll(ctx context.Context) ([]model.Metadata, error) 
 	}
 	defer rows.Close()
 
-	var metadataList []model.Metadata
+	var metadataList []model.Video
 
 	for rows.Next() {
-		var video model.Metadata
+		var video model.Video
 		err := rows.Scan(
 			&video.ID,
 			&video.VideoPath,
 			&video.Title,
-			&video.Subtitle,
 			&video.Description,
 			&video.Tag,
 			&video.ChannelID,
@@ -85,11 +83,11 @@ func (repo *MetadataRepo) GetAll(ctx context.Context) ([]model.Metadata, error) 
 		return nil, fmt.Errorf("error iterating rows: %w", err)
 	}
 
-	return metadataList, nil
+	return &metadataList, nil
 }
 
-func (repo *MetadataRepo) GetByTag(ctx context.Context, Tag string) ([]model.Metadata, error) {
-	query := `SELECT id, video_path, title, subtitle, description, tag, channel_id, likes, dislikes
+func (repo *VideoRepo) GetByTag(ctx context.Context, Tag string) (*[]model.Video, error) {
+	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes
 			  FROM video_metadata
 			  WHERE tag = @Tag`
 
@@ -100,15 +98,14 @@ func (repo *MetadataRepo) GetByTag(ctx context.Context, Tag string) ([]model.Met
 	}
 	defer rows.Close()
 
-	var metadataList []model.Metadata
+	var metadataList []model.Video
 
 	for rows.Next() {
-		var video model.Metadata
+		var video model.Video
 		err := rows.Scan(
 			&video.ID,
 			&video.VideoPath,
 			&video.Title,
-			&video.Subtitle,
 			&video.Description,
 			&video.Tag,
 			&video.ChannelID,
@@ -125,5 +122,5 @@ func (repo *MetadataRepo) GetByTag(ctx context.Context, Tag string) ([]model.Met
 		return nil, fmt.Errorf("error iterating rows: %w", err)
 	}
 
-	return metadataList, nil
+	return &metadataList, nil
 }

@@ -9,5 +9,7 @@ http:
 cache:
   ttl: 3600s
 
-mongo:
-  database_name: "video_metadata"
+postgres:
+  host: "localhost"
+  port: 5432
+  database: "video_metadata"

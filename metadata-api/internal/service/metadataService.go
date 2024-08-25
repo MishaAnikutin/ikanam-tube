@@ -7,18 +7,22 @@ import (
 	"github.com/MishaAnikutin/metadata-api/internal/repository"
 )
 
-type metadataService struct {
-	repo *repository.MetadataRepo
+type MetadataService struct {
+	repo *repository.VideoRepo
 }
 
-func (s *metadataService) GetByID(ctx context.Context, ID string) (model.Metadata, error) {
+func New(repo *repository.VideoRepo) *MetadataService {
+	return &MetadataService{repo: repo}
+}
+
+func (s *MetadataService) GetByID(ctx context.Context, ID string) (*model.Video, error) {
 	return s.repo.GetByID(ctx, ID)
 }
 
-func (s *metadataService) GetByTag(ctx context.Context, Tag string) ([]model.Metadata, error) {
+func (s *MetadataService) GetByTag(ctx context.Context, Tag string) (*[]model.Video, error) {
 	return s.repo.GetByTag(ctx, Tag)
 }
 
-func (s *metadataService) GetAll(ctx context.Context) ([]model.Metadata, error) {
+func (s *MetadataService) GetAll(ctx context.Context) (*[]model.Video, error) {
 	return s.repo.GetAll(ctx)
 }

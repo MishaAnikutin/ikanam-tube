@@ -6,6 +6,8 @@ import SideBar from './SideBar';
 const Feed = () => {
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
+        
+        {/* Боковая панель */}
         <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
             <SideBar />
 
@@ -13,6 +15,13 @@ const Feed = () => {
                 Copyright © 2024 HIHiGS
             </Typography>
         </ Box>
+
+        {/* Видео */}
+        <Box>
+            <Typography variant='h4'>
+                <span style={{ color: 'red'}}> video </span>
+            </Typography>
+        </Box>
     </ Stack>
     )
 }

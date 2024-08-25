@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -10,15 +11,17 @@ import (
 
 type (
 	AppConfig struct {
-		Env          string `yaml:"env" env-required:"true"`
-		ServerConfig `yaml:"http"`
-		MongoConfig  `yaml:"mongo"`
+		Env            string `yaml:"env" env-required:"true"`
+		ServerConfig   `yaml:"http"`
+		PostgresConfig `yaml:"postgres"`
 	}
 
-	MongoConfig struct {
+	PostgresConfig struct {
+		DatabaseHost string `yaml:"host" env-required:"true"`
+		DatabasePort string `yaml:"port" env-default:"5432"`
 		Username     string
 		Password     string
-		DatabaseName string `yaml:"database_name" env-required:"true"`
+		DatabaseName string `yaml:"database" env-required:"true"`
 	}
 
 	ServerConfig struct {
@@ -41,5 +44,20 @@ func Load(configPath string) *AppConfig {
 		log.Fatalf("Не удалось загрузить конфиг: %s", err)
 	}
 
+	cfg.Username = os.Getenv("POSTGRES_USERNAME")
+	cfg.Password = os.Getenv("POSTGRES_PASSWORD")
+
 	return &cfg
+}
+
+func PostgresURL(cfg *AppConfig) string {
+	return fmt.Sprintf(
+		"postgres://%s:%s@%s:%s/%s",
+		cfg.Username,
+		cfg.Password,
+		cfg.DatabaseHost,
+		cfg.DatabasePort,
+		cfg.DatabaseName,
+	)
+
 }

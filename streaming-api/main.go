@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	port := "80" // TODO: брать из окружения
+	port := "443"
 
 	server := server.New(port, handlers.InitRoutes())
 
