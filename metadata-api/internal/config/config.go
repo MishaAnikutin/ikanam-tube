@@ -41,11 +41,15 @@ func Load(configPath string) *AppConfig {
 	var cfg AppConfig
 
 	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
-		log.Fatalf("Не удалось загрузить конфиг: %s", err)
+		panic(fmt.Sprintf("Не удалось загрузить конфиг: %s", err))
 	}
 
-	cfg.Username = os.Getenv("POSTGRES_USERNAME")
+	cfg.Username = os.Getenv("POSTGRES_USER")
 	cfg.Password = os.Getenv("POSTGRES_PASSWORD")
+
+	if cfg.Username == "" || cfg.Password == "" {
+		panic("Не удалось загрузить пользователя или пароль от базы данных")
+	}
 
 	return &cfg
 }

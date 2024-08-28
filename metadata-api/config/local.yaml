@@ -10,6 +10,6 @@ cache:
   ttl: 3600s
 
 postgres:
-  host: "localhost"
+  host: "db_postgres"
   port: 5432
-  database: "video_metadata"
+  database: "postgres"

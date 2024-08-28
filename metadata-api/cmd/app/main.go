@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 
 	"github.com/MishaAnikutin/metadata-api/internal/app"
@@ -28,18 +29,23 @@ func main() {
 
 	url, err := pgxpool.ParseConfig(config.PostgresURL(cfg))
 
+	fmt.Println(config.PostgresURL(cfg))
+
 	if err != nil {
-		logger.Error("Ошибка при парсинге строки подключения: %s\n", err)
+		panic(fmt.Sprintf("Ошибка при парсинге строки подключения: %s", err))
 	}
 
 	pool, err := pgxpool.NewWithConfig(context.Background(), url)
+
 	if err != nil {
-		logger.Error("Ошибка при подключении к БД: %s\n", err)
+		panic(fmt.Sprintf("Ошибка при подключении к БД: %s\n", err))
 	}
 	defer pool.Close()
 
 	logger.Info("Проводим миграции")
-	migrations.UpgradeHead(context.Background(), pool)
+	if err := migrations.UpgradeHead(context.Background(), pool); err != nil {
+		panic(fmt.Sprintf("Не удалось провести миграцию: %s\n", err))
+	}
 
 	logger.Info("Внедряем зависимости")
 	router := di.Inject(context.Background(), pool)

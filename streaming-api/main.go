@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	port := "443"
+	port := "8001"
 
 	server := server.New(port, handlers.InitRoutes())
 

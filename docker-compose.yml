@@ -5,7 +5,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "8080:8080"
+      - "8000:3000"
     depends_on:
       - streaming_api
       - metadata_api
@@ -14,18 +14,22 @@ services:
     build:
       context: ./streaming-api
     ports:
-      - "8001:443"
+      - "8001:8001"
     volumes:
       - ./static:/app/static
-      - ./certs:/app/certs
+      # - ./certs:/app/certs
 
   metadata_api:
     build:
-      context: ./metadata-api/build
+      context: ./metadata-api
     ports:
-      - "8002:443"
-    volumes:
-      - ./certs:/app/certs
+      - "8002:8002"
+    env_file:
+      - ./metadata-api/internal/config/.env
+    depends_on:
+      - db_postgres
+    # volumes:
+    #   - ./certs:/app/certs
 
   db_postgres:
     image: postgres:15
@@ -33,7 +37,7 @@ services:
     volumes:
       - ./pg_db:/var/lib/postgresql@15/data/
     env_file:
-      - src/.env
+      - ./metadata-api/internal/config/.env
     ports:
       - "5432:5432"
 
@@ -42,21 +46,23 @@ services:
     depends_on:
       - db_postgres
     env_file:
-      - src/.env
+      - ./metadata-api/internal/config/.env
     ports:
-      - "5555:5555"
+      - "5555:80"
 
   nginx:
     build:
       context: ./nginx
     ports:
       - "8080:80"
-      - "8443:443"
-    volumes:
-      - ./certs:/etc/ssl/certs
+    #   - "8443:443"
+    # volumes:
+    #   - ./certs:/etc/ssl/certs
     depends_on:
-      - streaming-api
-
+      - streaming_api
+      - metadata_api
+      - frontend
+      
 volumes:
   dbdata6:
   db_postgres:

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Box, Stack, Typography } from '@mui/material';
 import { BorderRight } from '@mui/icons-material';
+
 import SideBar from './SideBar';
+import Videos from './Videos';
 
 const Feed = () => {
   return (
@@ -17,10 +19,12 @@ const Feed = () => {
         </ Box>
 
         {/* Видео */}
-        <Box>
-            <Typography variant='h4'>
-                <span style={{ color: 'red'}}> video </span>
+        <Box p={2} sx={{overflowY: 'auto', height: '90vh', flex: 2}}>
+            <Typography variant='h4' fontWeight='bold' mb={2} sx={{ color: "White"}}>
+                Последние <span style={{ color: '#FF0000'}}> Видео </span>
             </Typography>
+
+            <Videos videos={[]} />
         </Box>
     </ Stack>
     )

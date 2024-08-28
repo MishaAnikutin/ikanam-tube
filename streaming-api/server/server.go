@@ -25,13 +25,9 @@ func New(port string, routes http.Handler) Server {
 }
 
 func (s *Server) Run() error {
-	// entries, _ := os.ReadDir("./")
+	return s.httpServer.ListenAndServe()
 
-	// for _, e := range entries {
-	// 	log.Println(e.Name())
-	// }
-
-	return s.httpServer.ListenAndServeTLS("./certs/nginx.crt", "./certs/nginx.key")
+	// return s.httpServer.ListenAndServeTLS("./certs/nginx.crt", "./certs/nginx.key")
 }
 
 func (s *Server) Stop() error {
