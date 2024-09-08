@@ -42,7 +42,7 @@ services:
       - "5432:5432"
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:8.3
     depends_on:
       - db_postgres
     env_file:

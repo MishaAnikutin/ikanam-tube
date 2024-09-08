@@ -22,9 +22,9 @@ func New(pool *pgxpool.Pool) *VideoRepo {
 
 func (repo *VideoRepo) GetByID(ctx context.Context, ID string) (*model.Video, error) {
 
-	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes
+	query := `SELECT video_id, video_url, video_title, video_description, tag, channel_id, likes, dislikes
 			  FROM video_metadata
-			  WHERE id = @VideoID
+			  WHERE video_id = @VideoID
 			  LIMIT 1`
 
 	row := repo.session.QueryRow(ctx, query, pgx.NamedArgs{"VideoID": ID})
@@ -50,7 +50,7 @@ func (repo *VideoRepo) GetByID(ctx context.Context, ID string) (*model.Video, er
 }
 
 func (repo *VideoRepo) GetAll(ctx context.Context) (*[]model.Video, error) {
-	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes FROM video_metadata`
+	query := `SELECT video_id, video_url, video_title, video_description, tag, channel_id, likes, dislikes FROM video_metadata`
 
 	rows, err := repo.session.Query(ctx, query)
 
@@ -87,7 +87,7 @@ func (repo *VideoRepo) GetAll(ctx context.Context) (*[]model.Video, error) {
 }
 
 func (repo *VideoRepo) GetByTag(ctx context.Context, Tag string) (*[]model.Video, error) {
-	query := `SELECT id, video_path, title, description, tag, channel_id, likes, dislikes
+	query := `SELECT video_id, video_url, video_title, video_description, tag, channel_id, likes, dislikes
 			  FROM video_metadata
 			  WHERE tag = @Tag`
 

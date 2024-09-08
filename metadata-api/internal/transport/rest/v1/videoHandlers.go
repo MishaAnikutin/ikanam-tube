@@ -36,7 +36,7 @@ func (h *VideoHandlers) GetVideoByID(c *gin.Context) {
 
 func (h *VideoHandlers) GetVideoByTag(c *gin.Context) {
 	ctx := c.Request.Context()
-	tag := c.Query("tag")
+	tag := c.Param("tag")
 	metadataList, err := h.MetadataService.GetByTag(ctx, tag)
 
 	if err != nil {
