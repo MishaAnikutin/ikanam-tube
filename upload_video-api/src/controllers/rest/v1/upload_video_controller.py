@@ -11,22 +11,23 @@ upload_video_router = APIRouter(prefix="/video")
 @upload_video_router.post("/upload")
 @inject
 async def upload(
-        # video_metadata: Video,
+        title: str,
+        description: str,
+        tag: TagsEnum,
+        channel_id: int,
         video_file: UploadFile,
         picture_file: UploadFile,
         upload_interactor: FromDishka[UploadVideoI]
 ):
 
-    video = Video(
-        title='Математический анализ. Введение',
-        description='Математический анализ, 1 курс, 1 семестр, 1 задание',
-        tag=TagsEnum.matan,
-        channel_id=1
-    )
-
     try:
         await upload_interactor.upload(
-            video=video,
+            video=Video(
+                title=title,
+                description=description,
+                tag=tag,
+                channel_id=channel_id
+            ),
             video_file=video_file,
             picture_file=picture_file
         )

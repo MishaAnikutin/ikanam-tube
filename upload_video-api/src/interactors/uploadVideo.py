@@ -31,10 +31,9 @@ class UploadVideoInteractor(UploadVideoI):
 
         try:
             # save video file in storage
-            # video_url = await self._video_gateway.add(video_file=video_file, title=video.title)
-            video_url = f'/static/videos/{video.title}.m3u8'
+            video_url = await self._video_gateway.add(video_file=video_file, title=video.title)
             # convert mp4 to m3u8
-            # self._video_gateway.convert(title=video.title)
+            self._video_gateway.convert(title=video.title)
 
             # save video preview
             picture_url = await self._photo_gateway.add(picture_file=picture_file, title=video.title)
