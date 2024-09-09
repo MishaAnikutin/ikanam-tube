@@ -8,7 +8,7 @@ from .models import MetadataORM
 
 class MetadataGatewayInterface(ABC):
     @abstractmethod
-    async def new(self, video_metadata: Video, video_url: str, photo_url: str) -> int:
+    async def new(self, video: Video, video_url: str, picture_url: str) -> int:
         ...
 
     @abstractmethod
@@ -32,6 +32,8 @@ class MetadataGateway(MetadataGatewayInterface):
                 picture_url=picture_url,
             )
         )
+
+        await self._session.commit()
 
     async def delete(self, video_id: int):
         ...

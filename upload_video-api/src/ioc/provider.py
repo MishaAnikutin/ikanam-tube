@@ -1,16 +1,16 @@
 from typing import AsyncIterable
 
 from dishka import Provider, Scope, provide
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from src.adapters import (
-    session_maker,
+    postgres_session_maker,
     MetadataGateway, MetadataGatewayInterface,
     PhotoGateway, PhotoGatewayInterface,
     VideoGateway, VideoGatewayInterface
 )
 
-from src.interactors.uploadVideo import UploadVideoInteractor
+from src.interactors.uploadVideo import UploadVideoInteractor, UploadVideoI
 
 
 class AdaptersProvider(Provider):
@@ -21,7 +21,11 @@ class AdaptersProvider(Provider):
     video = provide(VideoGateway, provides=VideoGatewayInterface)
 
     @provide
-    async def session(self) -> AsyncIterable[AsyncSession]:
+    async def get_session_maker(self) -> async_sessionmaker[AsyncSession]:
+        return postgres_session_maker()
+
+    @provide(scope=Scope.REQUEST)
+    async def session(self, session_maker: async_sessionmaker[AsyncSession]) -> AsyncIterable[AsyncSession]:
         async with session_maker() as session:
             yield session
 
@@ -29,4 +33,4 @@ class AdaptersProvider(Provider):
 class InteractorProvider(Provider):
     scope = Scope.REQUEST
 
-    product = provide(UploadVideoInteractor)
+    product = provide(UploadVideoInteractor, provides=UploadVideoI)

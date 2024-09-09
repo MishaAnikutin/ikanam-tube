@@ -1,8 +1,8 @@
 from .metadataGateway import MetadataGatewayInterface, MetadataGateway
-from .session import session_maker
+from .session import postgres_session_maker
 
 __all__ = (
     'MetadataGatewayInterface',
     'MetadataGateway',
-    'session_maker'
+    'postgres_session_maker'
 )

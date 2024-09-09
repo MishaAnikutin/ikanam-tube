@@ -9,7 +9,7 @@ engine = create_async_engine(
 )
 
 
-def session_maker():
+def postgres_session_maker() -> async_sessionmaker[AsyncSession]:
     return async_sessionmaker(
         bind=engine,
         autoflush=False,

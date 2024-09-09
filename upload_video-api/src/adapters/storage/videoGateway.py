@@ -11,7 +11,7 @@ class VideoGatewayInterface(ABC):
         ...
 
     @abstractmethod
-    async def convert(self, title: str):
+    def convert(self, title: str):
         ...
 
     @abstractmethod

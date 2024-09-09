@@ -8,3 +8,8 @@ class Video(BaseModel):
     description: str
     tag: TagsEnum
     channel_id: int
+
+
+class VideoResponse(BaseModel):
+    result: str
+    error_message: str | None
