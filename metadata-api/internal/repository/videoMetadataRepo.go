@@ -46,6 +46,8 @@ func (repo *VideoRepo) GetByID(ctx context.Context, ID string) (*model.Video, er
 		return nil, fmt.Errorf("Невозможно сканировать данные: %w", err)
 	}
 
+	fmt.Println(video)
+
 	return &video, nil
 }
 

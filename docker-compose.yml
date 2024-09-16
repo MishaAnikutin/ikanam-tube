@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "8000:3000"
-    depends_on:
-      - streaming_api
-      - metadata_api
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #   ports:
+  #     - "8000:3000"
+  #   depends_on:
+  #     - streaming_api
+  #     - metadata_api
 
   streaming_api:
     build:
@@ -61,7 +61,7 @@ services:
     depends_on:
       - streaming_api
       - metadata_api
-      - frontend
+      # - frontend
       
 volumes:
   dbdata6:
