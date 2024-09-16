@@ -14,7 +14,7 @@ export const getAllMetadata = async () => {
 } 
 
 export const getVideoMetadataByID = async (id) => {
-    const { data } = await axios.get(`${metadata_url}/videos/${id}`, { headers });
+    const { data } = await axios.get(`${metadata_url}/video/${id}`, { headers });
     return data;
 }
 
@@ -24,6 +24,6 @@ export const getVideoMetadataByTag = async (tag) => {
 }
 
 export const getVideo = async (filename) => {
-    const { data } = await axios.get(`${videofile_url}/${filename}`, { headers });
+    const { data } = await axios.get(`${videofile_url}/api/video/${filename}`, { headers });
     return data;
 }

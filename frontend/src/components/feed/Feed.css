@@ -1,0 +1,26 @@
+.feed-container {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 600px) {
+    .feed-container {
+        flex-direction: column;
+    }
+}
+
+
+.videos-container {
+    padding: 2rem;
+    overflow-y: auto;
+    height: 90vh;
+    flex: 2;
+}
+
+.videos-title {
+    color: white;
+}
+
+.highlight {
+    color: #FF0000;
+}

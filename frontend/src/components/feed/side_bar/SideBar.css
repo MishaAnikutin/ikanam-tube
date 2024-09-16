@@ -1,0 +1,19 @@
+.sidebar {
+    height: auto; 
+    border-right: 1px solid #3d3d3d;
+    padding-left: 0;
+    padding-right: 2rem;
+    direction: column
+}
+
+.category-stack {
+    overflow-y: auto;
+    height: auto; 
+    height: 95%; 
+    border-radius: 5px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+}

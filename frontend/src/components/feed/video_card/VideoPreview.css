@@ -1,0 +1,17 @@
+.link {
+    border-radius: 20px; 
+    display: block;
+    overflow: hidden; 
+}
+
+.card-media {
+    width: 100%; 
+    height: 250px;
+    object-fit: cover; 
+}
+
+@media (max-width: 600px) {
+    .card-media {
+        height: auto;
+    }
+}

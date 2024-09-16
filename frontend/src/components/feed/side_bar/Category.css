@@ -1,0 +1,14 @@
+.category-btn {
+    margin: 5px;
+    border-radius: 10px;
+    background: transparent; /* изначальный фон, будет переопределен через класс */
+    color: white;
+    cursor: pointer;
+    border: none;
+    width: 100%; /* Занять всю ширину для удобства нажатия */
+    text-align: left; /* По умолчанию выравнивание текста слева */
+}
+
+.category-btn.active {
+    background: #272727; /* Цвет фона для выбранной категории */
+}

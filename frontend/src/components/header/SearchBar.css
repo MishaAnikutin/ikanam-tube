@@ -1,0 +1,20 @@
+.search-bar-container {
+    border-radius: 20px !important;
+    border: 1px solid #e3e3e3;
+    padding-left: 16px; /* эквивалентно pl: 2 */
+    box-shadow: none;
+    margin-right: 40px; /* эквивалентно mr: {sm: 5} */
+    display: flex; /* чтобы input и IconButton были на одной линии */
+    align-items: center; /* центровка по вертикали */
+}
+
+.search-bar {
+    width: 500px;
+    border: none; /* убираем стандартные стили браузера */
+    outline: none; /* убираем обводку при фокусе */
+    padding: 10px; /* добавление отступа внутри input */
+}
+
+.icon-button {
+    padding: 10px;
+}

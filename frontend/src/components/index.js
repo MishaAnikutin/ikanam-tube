@@ -1,8 +1,7 @@
-export {default as Navbar } from './Navbar';
-export {default as Feed } from './Feed';
-export {default as ChannelDetail } from './ChannelDetail';
-export {default as VideoDetail } from './VideoDetail';
-export {default as SearchFeed } from './SearchFeed';
-export {default as SearchBar } from './SearchBar';
-export {default as SideBar } from './SideBar';
-export {default as Videos } from './Videos';
+export {default as Header } from './header/Header';
+export {default as Feed } from './feed/Feed';
+export {default as ChannelDetail } from './channel/ChannelDetail';
+export {default as VideoDetail } from './video/VideoDetail';
+export {default as SearchFeed } from './feed/SearchFeed';
+export {default as SearchBar } from './header/SearchBar';
+export {default as Videos } from './feed/VideosFeed';

@@ -1,0 +1,17 @@
+.card {
+    background-color: transparent !important;
+    border-radius: 20px !important; 
+    width: 450px; 
+    transition: box-shadow 0.3s ease;
+    position: relative; 
+}
+
+.card:hover {
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.8); 
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 100%; 
+    }
+}
