@@ -6,7 +6,7 @@ import './VideoPreview.css';
 
 const VideoPreview = ({ id, title, video_path, image_path }) => {
     return (
-        <Link to={`video/${id}`} className="link">
+        <Link to={`/video/${id}`} className="link">
             <CardMedia 
                 component="img"
                 alt={title}

@@ -6,7 +6,7 @@ import './Header.css';
 const Header = () => (
     <Stack className="header" direction="row" alignItems="center" spacing={2}>
         <Logo />
-        <SearchBar />
+        <SearchBar className='search' />
     </Stack>
 );
 

@@ -1,0 +1,24 @@
+.share-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px; /* Внутренние отступы */
+    background-color: #1a1a1a; /* Цвет фона кнопки (синий) */
+    border: none; /* Убираем границы */
+    border-radius: 20px; /* Скругления кнопки */
+    cursor: pointer; /* Указываем, что это кнопка */
+    transition: background-color 0.3s; /* Плавный переход при наведении */
+  }
+  
+  .share-button:hover {
+    background-color: gray; /* Цвет при наведении (темнее) */
+  }
+  
+  .share-icon {
+    margin-right: 8px; /* Отступ между иконкой и текстом */
+  }
+  
+  .share-text {
+    color: white; /* Цвет текста */
+    font-weight: bold; /* Жирный шрифт */
+  }
+  

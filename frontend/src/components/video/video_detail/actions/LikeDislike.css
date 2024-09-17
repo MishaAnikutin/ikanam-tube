@@ -1,0 +1,34 @@
+.like-dislike-container {
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  padding: 5px 5px;
+  width: fit-content;
+  margin: 10px auto;
+}
+
+.like-dislike-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  outline: none;
+}
+
+.like-icon, .dislike-icon {
+  margin-right: 10px;
+}
+
+.divider {
+  width: 2px;
+  height: 35px;
+  background-color: #4d4d4d;
+}
+
+.like-count, .dislike-count {
+  color: white;
+  font-weight: bold;
+}
